@@ -6,6 +6,7 @@ from core.di_container import DIContainer
 from dependency_injector.wiring import Provide, inject
 
 from domain.exceptions.user_exceptions import AuthenticationException
+from infra.db.cache.cache_decarator import cache_result
 from presentation.schemas.request import RequestDTO
 from presentation.schemas.user import UserRequestDTO
 from infra.security.auth.jwt_bearer import JWTBearer
@@ -13,6 +14,7 @@ from infra.security.auth.jwt_bearer import JWTBearer
 request_router = APIRouter()    
 
 @request_router.post("/process")
+@cache_result(3600)
 @inject
 async def get_request(
     req: RequestDTO,
@@ -26,6 +28,7 @@ async def get_request(
     
 
 @request_router.get('/history')
+@cache_result(3600)
 @inject
 async def get_user_history(
     current_user: dict = Depends(JWTBearer()),
@@ -37,6 +40,7 @@ async def get_user_history(
         raise HTTPException(status_code=500, detail=str(e))
     
 @request_router.get('/analytics')
+@cache_result(3600)
 @inject
 async def get_analytics(
     current_user: dict = Depends(JWTBearer()),

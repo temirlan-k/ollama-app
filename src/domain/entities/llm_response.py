@@ -5,6 +5,6 @@ class AnalyticsEntity(BaseModel):
     id: str | None =  None
     user_id:int
     input_text:str
-    full_response: Dict[str,Any]
+    full_response:Any
 
 

@@ -16,4 +16,4 @@ class OllamaClient(IOllamaClient):
                 "content": message,
             }],
         )
-        return response
+        return response.model_dump()

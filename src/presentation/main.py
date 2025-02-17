@@ -5,8 +5,8 @@ from fastapi import FastAPI
 from presentation.api.v1.user import user_router
 from presentation.api.v1.request import request_router
 from core.di_container import DIContainer
-from infra.db.mongo.db import init_mongo, close_mongo
-from infra.db.redis.redis import redis_cache
+from infra.db.mongo_db.db import init_mongo, close_mongo
+from infra.db.cache.redis import redis_cache
 import uvicorn
 
 # Контейнер зависимостей

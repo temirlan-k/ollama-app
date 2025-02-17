@@ -5,7 +5,7 @@ from infra.db.postgres.uow import SQLAlchemyUnitOfWork
 from application.user_service import UserService
 from infra.llm_provider.ollama import OllamaClient
 from application.analytics_service import AnalyticsService
-from infra.db.mongo.repositories.analytics import analytics_repo
+from infra.db.mongo_db.repositories.analytics import analytics_repo
 
 
 class DIContainer(containers.DeclarativeContainer):

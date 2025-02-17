@@ -16,7 +16,7 @@ class RequestService:
         self._llm = llm
         self._analytics_service = analytics_service
 
-    async def create_request(self, req: RequestDTO, user_id:int) -> dict:
+    async def create_request(self, req: RequestDTO, user_id:int) -> RequestEntity:
         llm_response = await self._llm.chat(req.user_message)
         response_text = llm_response.get('message').get('content')
         request = RequestEntity(user_id=user_id, input_text=req.user_message, response_text=response_text)
@@ -31,11 +31,10 @@ class RequestService:
         return created_request
 
         
-    async def get_user_request_history(self, user_id:int):
+    async def get_user_request_history(self, user_id:int)-> List[RequestEntity]:
         async with self._uow as uow:
             try:
                 req_history = await uow.request_repository.get_requests_by_user_id(user_id)
-                print(req_history)
                 return req_history
             except Exception as e:
                 await uow.rollback()
