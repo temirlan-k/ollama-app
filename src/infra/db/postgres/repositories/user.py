@@ -23,6 +23,6 @@ class UserRepository:
             select(User).where(User.email == email)
         )
         user_db = result.scalars().first()
-        return UserEntity(id=user_db.id, email=user_db.email, created_at=user_db.created_at) if user_db else None
+        return UserEntity(id=user_db.id, email=user_db.email, created_at=user_db.created_at,password=user_db.hashed_password) if user_db else None
 
 

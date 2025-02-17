@@ -2,9 +2,14 @@ from domain.entities.llm_response import AnalyticsEntity
 from domain.interfaces.analytics import IAnalyticsRepository
 from typing import List
 
+from core.log import setup_logging
+
+log  = setup_logging()
+
 class AnalyticsService:
     def __init__(self, analytics_repo: IAnalyticsRepository):
         self._analytics_repo = analytics_repo
+        log.info("AnalyticsService initialized")
 
     async def save_llm_response(self, user_id: int, input_text: str, full_response: dict):
         llm_response = AnalyticsEntity(user_id=user_id, input_text=input_text, full_response=full_response)

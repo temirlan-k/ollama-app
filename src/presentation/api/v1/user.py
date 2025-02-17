@@ -1,8 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 
 from application.user_service import UserService
-from domain.exceptions.database_exceptions import DatabaseException
-from domain.exceptions.user_exceptions import UserAlreadyExistsException
+from domain.exceptions.user_exceptions import UserAlreadyExistsException,BadRequestException,NotFoundException
 from core.di_container import DIContainer
 from dependency_injector.wiring import Provide, inject
 
@@ -19,11 +18,25 @@ async def create_user(req: UserRequestDTO, user_service: UserService = Depends(P
         return await user_service.create_user(req)
     except UserAlreadyExistsException as e:
         raise HTTPException(status_code=400, detail=e.message)
-    except DatabaseException as e:
-        raise HTTPException(status_code=500, detail=e.message)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
     
+
+@user_router.post('/login')
+@inject
+async def login(
+    req: UserRequestDTO,
+    user_service: UserService = Depends(Provide[DIContainer.user_service])
+):
+    try:
+        return await user_service.login(req)
+    except BadRequestException as e:
+        raise HTTPException(status_code=400, detail=e.message)
+    except NotFoundException as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=404, detail=str(e))
+
 # @user_router.get("/me")   
 # async def get_current_user(
 #     user_service: UserService = Depends(Provide[DIContainer.user_service])
