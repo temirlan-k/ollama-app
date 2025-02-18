@@ -2,7 +2,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from infra.db.postgres.repositories.request import RequestRepository
 from infra.db.postgres.repositories.user import UserRepository
 
-
 class SQLAlchemyUnitOfWork:
 
     def __init__(self, session_factory) -> None:
@@ -25,3 +24,4 @@ class SQLAlchemyUnitOfWork:
 
     async def rollback(self):
         await self.session.rollback()
+
