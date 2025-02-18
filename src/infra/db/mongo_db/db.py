@@ -1,7 +1,7 @@
 from beanie import init_beanie
 from motor import motor_asyncio
 from infra.db.mongo_db.models.analytics import Analytics
-from core.log import setup_logging
+from bootstrap.log import setup_logging
 
 client = motor_asyncio.AsyncIOMotorClient("mongodb://root:root@mongo:27017/")
 logger = setup_logging()

@@ -3,7 +3,7 @@ import hashlib
 from functools import wraps
 from pydantic import BaseModel
 from infra.db.cache.redis import redis_cache
-from core.log import setup_logging
+from bootstrap.log import setup_logging
 
 logger = setup_logging()
 

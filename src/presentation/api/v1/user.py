@@ -6,7 +6,7 @@ from domain.exceptions.user_exceptions import (
     BadRequestException,
     NotFoundException,
 )
-from core.di_container import DIContainer
+from bootstrap.di_container import DIContainer
 from dependency_injector.wiring import Provide, inject
 
 from presentation.schemas.user import UserRequestDTO

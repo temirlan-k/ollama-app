@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from core.di_container import DIContainer
+from bootstrap.di_container import DIContainer
 from infra.db.cache.redis import redis_cache
 from infra.db.mongo_db.db import close_mongo, init_mongo
 from infra.prometheus.middleware import init_prometheus

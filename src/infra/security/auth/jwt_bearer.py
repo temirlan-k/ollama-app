@@ -3,13 +3,13 @@ from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 
 from infra.security.auth.auth_handler import decode_token
-from core.configs import config
+from bootstrap.configs import config
 
 from fastapi import Depends, Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 import jwt
 
-from core.configs import config
+from bootstrap.configs import config
 
 
 class JWTBearer(HTTPBearer):

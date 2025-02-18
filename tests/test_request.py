@@ -1,6 +1,3 @@
-
-
-
 import pytest
 from domain.entities.request import RequestEntity
 from infra.db.postgres.repositories.request import RequestRepository

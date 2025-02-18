@@ -3,7 +3,7 @@ from fastapi.responses import JSONResponse
 from typing import List
 
 from application.request_service import RequestService
-from core.di_container import DIContainer
+from bootstrap.di_container import DIContainer
 from dependency_injector.wiring import Provide, inject
 
 from infra.db.cache.cache_decarator import cache_result

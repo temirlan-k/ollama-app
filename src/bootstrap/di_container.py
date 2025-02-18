@@ -1,6 +1,6 @@
 from dependency_injector import containers, providers
 
-from core.log import setup_logging
+from bootstrap.log import setup_logging
 from application.analytics_service import AnalyticsService
 from application.request_service import RequestService
 from application.user_service import UserService

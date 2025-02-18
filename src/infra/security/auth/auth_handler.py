@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
 from fastapi import HTTPException
 import jwt
-from core.configs import config
+from bootstrap.configs import config
 
 
 def create_access_token(payload: dict) -> str:
