@@ -1,6 +1,7 @@
 from typing import Any, Dict
 from beanie import Document
 
+
 class Analytics(Document):
     user_id: int
     input_text: str

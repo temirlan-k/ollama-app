@@ -1,6 +1,7 @@
-from abc import ABC, abstractmethod
 from typing import List
+from abc import ABC, abstractmethod
 from domain.entities.llm_response import AnalyticsEntity
+
 
 class IAnalyticsRepository(ABC):
     @abstractmethod

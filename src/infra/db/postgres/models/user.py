@@ -15,4 +15,3 @@ class User(Base, TimeStampMixin):
 
     def __repr__(self):
         return f"<User {self.email}>"
-    

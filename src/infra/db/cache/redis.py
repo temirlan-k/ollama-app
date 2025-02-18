@@ -18,4 +18,5 @@ class RedisCache:
     async def close(self):
         await self.redis.close()
 
+
 redis_cache = RedisCache()

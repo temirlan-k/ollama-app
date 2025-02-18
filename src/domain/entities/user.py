@@ -1,7 +1,6 @@
-from dataclasses import dataclass
 from datetime import datetime
-
 from pydantic import BaseModel
+
 
 class UserEntity(BaseModel):
     id: int | None = None
@@ -12,4 +11,3 @@ class UserEntity(BaseModel):
 
     class Config:
         from_attributes = True
-

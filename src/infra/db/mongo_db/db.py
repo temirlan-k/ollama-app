@@ -6,6 +6,7 @@ from core.log import setup_logging
 client = motor_asyncio.AsyncIOMotorClient("mongodb://root:root@mongo:27017/")
 logger = setup_logging()
 
+
 async def init_mongo():
     try:
         database = client.analytics
@@ -14,6 +15,7 @@ async def init_mongo():
     except Exception as e:
         logger.error(f"Error initializing MongoDB: {e}")
         raise
+
 
 async def close_mongo():
     try:

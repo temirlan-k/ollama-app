@@ -1,12 +1,12 @@
 import json
 import hashlib
-import asyncio
 from functools import wraps
 from pydantic import BaseModel
 from infra.db.cache.redis import redis_cache
 from core.log import setup_logging
 
 logger = setup_logging()
+
 
 def cache_result(expire: int = 3600):
     def decorator(func):
@@ -25,7 +25,9 @@ def cache_result(expire: int = 3600):
 
             result = await func(*args, **kwargs)
 
-            if isinstance(result, list) and all(isinstance(item, BaseModel) for item in result):
+            if isinstance(result, list) and all(
+                isinstance(item, BaseModel) for item in result
+            ):
                 result_dict = [item.model_dump() for item in result]
             elif isinstance(result, BaseModel):
                 result_dict = result.model_dump()
