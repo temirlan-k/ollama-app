@@ -13,3 +13,4 @@ ollama
 aioredis==2.0.1 
 redis==5.2.1
 structlog
+prometheus_client==0.21.1
