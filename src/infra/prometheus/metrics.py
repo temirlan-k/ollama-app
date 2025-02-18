@@ -23,3 +23,12 @@ OPERATION_COUNT = Counter(
 USER_OPERATIONS = Counter(
     "user_operations_total", "Total number of user operations", ["operation_type"]
 )
+
+
+LLM_REQUEST_DURATION = Histogram(
+    name='llm_request_duration_seconds',
+    documentation='LLM request duration ',
+    labelnames=['model', 'status'],
+    buckets=(0.1, 0.25, 0.5, 1.0, 2.5, 5.0, 10.0, 30.0)
+)
+

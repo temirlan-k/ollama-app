@@ -6,7 +6,8 @@ from application.request_service import RequestService
 from bootstrap.di_container import DIContainer
 from dependency_injector.wiring import Provide, inject
 
-from infra.db.cache.cache_decarator import cache_result
+from infra.db.cache.cache_decorator import cache_result
+from infra.prometheus.decorators import track_llm_duration
 from presentation.schemas.request import RequestDTO
 from infra.security.auth.jwt_bearer import JWTBearer
 
@@ -27,6 +28,7 @@ request_router = APIRouter(
     },
 )
 @cache_result(3600)
+@track_llm_duration
 @inject
 async def create_request(
     req: RequestDTO,

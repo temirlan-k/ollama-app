@@ -205,6 +205,6 @@ make migrate
 ```bash
 docker-compose up -d
 ```
-
-### Мониторинг
-Приложение экспортирует метрики Prometheus. Настройте Prometheus для сбора этих метрик для мониторинга.
+```bash
+make run
+```

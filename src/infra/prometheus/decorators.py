@@ -1,53 +1,26 @@
+from time import time
 from functools import wraps
-from prometheus_client import Counter, Histogram
-import time
-from typing import Callable
 
-REQUEST_COUNT = Counter(
-    "request_count_total",
-    "Total count of requests by endpoint and method",
-    ["endpoint", "method"],
-)
+from infra.prometheus.metrics import LLM_REQUEST_DURATION
 
-REQUEST_LATENCY = Histogram(
-    "request_latency_seconds",
-    "Request latency by endpoint and method",
-    ["endpoint", "method"],
-)
+def track_llm_duration(func):
+    @wraps(func)
+    async def wrapper(*args, **kwargs):
+        start_time = time()
+        try:
+            result = await func(*args, **kwargs)
+            duration = time() - start_time
+            LLM_REQUEST_DURATION.labels(
+                model='ollama',
+                status='success'
+            ).observe(duration)
+            return result
+        except Exception as e:
+            duration = time() - start_time
+            LLM_REQUEST_DURATION.labels(
+                model='ollama',
+                status='error'
+            ).observe(duration)
+            raise e
+    return wrapper
 
-OPERATION_COUNT = Counter(
-    "operation_count_total", "Count of specific operations", ["operation_type"]
-)
-
-
-def track_request():
-    def decorator(func: Callable):
-        @wraps(func)
-        async def wrapper(*args, **kwargs):
-            endpoint = func.__name__
-            method = "POST" if endpoint in ["create_user", "login"] else "GET"
-
-            REQUEST_COUNT.labels(endpoint=endpoint, method=method).inc()
-
-            start_time = time.time()
-            response = await func(*args, **kwargs)
-            latency = time.time() - start_time
-            REQUEST_LATENCY.labels(endpoint=endpoint, method=method).observe(latency)
-
-            return response
-
-        return wrapper
-
-    return decorator
-
-
-def track_operation(operation_type: str):
-    def decorator(func: Callable):
-        @wraps(func)
-        async def wrapper(*args, **kwargs):
-            OPERATION_COUNT.labels(operation_type=operation_type).inc()
-            return await func(*args, **kwargs)
-
-        return wrapper
-
-    return decorator
