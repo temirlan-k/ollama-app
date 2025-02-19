@@ -16,10 +16,12 @@ class RequestService:
         uow: SQLAlchemyUnitOfWork,
         llm: IOllamaClient,
         logger: structlog.stdlib.BoundLogger,
+        analytics_service:AnalyticsService
     ) -> None:
         self._uow = uow
         self._llm = llm
         self._logger = logger
+        self._analytics_service = analytics_service
 
     async def create_request(self, req: RequestDTO, user_id: int) -> RequestEntity:
         self._logger.info(

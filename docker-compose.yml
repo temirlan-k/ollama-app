@@ -9,13 +9,10 @@ services:
       - .:/app
     command: ["python", "src/bootstrap/main.py"]
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      ollama:
-        condition: service_started
-    restart: always
+      - redis
+      - ollama
+      - postgres
+  
 
   postgres:
     image: postgres:alpine
@@ -55,12 +52,6 @@ services:
     image: redis:alpine
     ports:
       - "6380:6379"
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 30s
 
   prometheus:
     image: prom/prometheus:latest
