@@ -30,7 +30,6 @@ class RequestRepository:
             select(Request).where(Request.user_id == user_id)
         )
         requests_db = result.scalars().all()
-        print(requests_db)
         return [
             RequestEntity(
                 id=request.id,

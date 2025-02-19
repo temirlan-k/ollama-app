@@ -8,6 +8,7 @@ from infra.db.mongo_db.db import close_mongo, init_mongo
 from infra.prometheus.middleware import init_prometheus
 from presentation.api.v1.request import request_router
 from presentation.api.v1.user import user_router
+from presentation.api.v1.analytics import analytics_router
 
 container = DIContainer()
 container.wire(packages=["presentation.api.v1"])
@@ -29,6 +30,7 @@ def create_app() -> FastAPI:
     app.container = container
     app.include_router(user_router)
     app.include_router(request_router)
+    app.include_router(analytics_router)
     init_prometheus(app)
     return app
 

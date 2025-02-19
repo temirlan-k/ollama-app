@@ -15,12 +15,10 @@ class RequestService:
         self,
         uow: SQLAlchemyUnitOfWork,
         llm: IOllamaClient,
-        analytics_service: AnalyticsService,
         logger: structlog.stdlib.BoundLogger,
     ) -> None:
         self._uow = uow
         self._llm = llm
-        self._analytics_service = analytics_service
         self._logger = logger
 
     async def create_request(self, req: RequestDTO, user_id: int) -> RequestEntity:
@@ -72,18 +70,3 @@ class RequestService:
             )
             raise
 
-    async def get_all_analytics(self, user_id: int) -> List[AnalyticsEntity]:
-        self._logger.info("Fetching user analytics", extra={"user_id": user_id})
-        try:
-            res = await self._analytics_service.get_user_analytics(user_id)
-            self._logger.info(
-                "Successfully fetched user analytics",
-                extra={"user_id": user_id, "analytics_count": len(res)},
-            )
-            return res
-        except Exception as e:
-            self._logger.error(
-                "Error fetching user analytics",
-                extra={"user_id": user_id, "error": str(e)},
-            )
-            raise

@@ -15,10 +15,11 @@ class AnalyticsRepository(IAnalyticsRepository):
         await analytics_db.insert()
         return llm_response
 
-    async def get_user_analytics(self, user_id: int) -> List[AnalyticsEntity]:
-        analytics_db = await Analytics.find({"user_id": user_id}).to_list()
+    async def get_analytics(self, ) -> List[AnalyticsEntity]:
+        analytics_db = await Analytics.find_all().to_list()
         return [
             AnalyticsEntity(
+                id=str(res.id),
                 user_id=res.user_id,
                 input_text=res.input_text,
                 full_response=res.full_response,

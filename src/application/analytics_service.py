@@ -35,18 +35,19 @@ class AnalyticsService:
             )
             raise e
 
-    async def get_user_analytics(self, user_id: int) -> List[AnalyticsEntity]:
-        self._logger.info("Fetching user analytics", extra={"user_id": user_id})
+    async def get_all_analytics(self,) -> List[AnalyticsEntity]:
+        self._logger.info("Fetching all analytics", )
         try:
-            analytics = await self._analytics_repo.get_user_analytics(user_id)
+            analytics = await self._analytics_repo.get_analytics()
             self._logger.info(
-                "User analytics fetched",
-                extra={"user_id": user_id, "analytics_count": len(analytics)},
+                "All analytics fetched",
+                extra={ "analytics_count": len(analytics)},
             )
             return analytics
         except Exception as e:
             self._logger.error(
                 "Error fetching user analytics",
-                extra={"user_id": user_id, "error": str(e)},
+                extra={"error": str(e)},
             )
             raise e
+

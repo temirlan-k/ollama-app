@@ -9,5 +9,5 @@ class IAnalyticsRepository(ABC):
         raise NotImplementedError()
 
     @abstractmethod
-    async def get_user_analytics(self, user_id: int) -> List[AnalyticsEntity]:
+    async def get_analytics(self,) -> List[AnalyticsEntity]:
         raise NotImplementedError()

@@ -81,33 +81,3 @@ async def get_user_history(
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
-@request_router.get(
-    "/analytics",
-    summary="Получить аналитику по запросам",
-    description="Возвращает аналитические данные о запросах пользователя.",
-    responses={
-        200: {"description": "Аналитика успешно получена."},
-        401: {"description": "Ошибка аутентификации."},
-        500: {"description": "Ошибка сервера."},
-    },
-)
-@cache_result(3600)
-@inject
-async def get_analytics(
-    current_user: dict = Depends(JWTBearer()),
-    request_service: RequestService = Depends(Provide[DIContainer.request_service]),
-):
-    """
-    **Получить аналитику по запросам**
-
-    - **current_user**: Текущий пользователь (из JWT)
-    - **request_service**: Сервис работы с аналитикой
-
-    **Возвращает**:
-    - Данные об аналитике запросов пользователя
-    """
-    try:
-        return await request_service.get_all_analytics(current_user.get("sub"))
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
