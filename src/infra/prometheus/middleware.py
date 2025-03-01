@@ -1,6 +1,6 @@
+import time
 from fastapi import FastAPI
 from prometheus_client import make_asgi_app
-import time
 from starlette.middleware.base import BaseHTTPMiddleware
 from .metrics import HTTP_REQUESTS_TOTAL, HTTP_REQUEST_DURATION, OPERATION_COUNT, UP
 

@@ -6,6 +6,7 @@ from bootstrap.di_container import DIContainer
 from infra.db.cache.redis import redis_cache
 from infra.db.mongo_db.db import close_mongo, init_mongo
 from infra.prometheus.middleware import init_prometheus
+from infra.sentry.sentry import init_sentry
 from presentation.api.v1.request import request_router
 from presentation.api.v1.user import user_router
 from presentation.api.v1.analytics import analytics_router
@@ -26,6 +27,7 @@ async def lifespan(_: FastAPI):
 
 
 def create_app() -> FastAPI:
+    init_sentry()
     app = FastAPI(lifespan=lifespan)
     app.container = container
     app.include_router(user_router)
@@ -35,7 +37,9 @@ def create_app() -> FastAPI:
     return app
 
 
+
 app = create_app()
+
 
 
 if __name__ == "__main__":

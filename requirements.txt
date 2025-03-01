@@ -14,4 +14,4 @@ structlog
 ollama
 pydantic[email]
 passlib[bcrypt]
-
+sentry-sdk[fastapi]
