@@ -11,10 +11,10 @@ services:
       - .:/app
     command: ["python", "src/bootstrap/main.py"]
     depends_on:
+      - postgres
       - redis
       - ollama
-      - postgres
-  
+      - mongo
 
   postgres:
     image: postgres:alpine
@@ -29,7 +29,7 @@ services:
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 30s
-      retries: 3
+      retries: 5
       start_period: 30s
       timeout: 10s
 
