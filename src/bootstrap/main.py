@@ -2,7 +2,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from bootstrap.di_container import DIContainer
+from bootstrap.di_container import container
 from infra.db.cache.redis import redis_cache
 from infra.db.mongo_db.db import close_mongo, init_mongo
 from infra.prometheus.middleware import init_prometheus
@@ -13,8 +13,6 @@ from presentation.api.rest.v1.analytics import analytics_router
 from presentation.api.graphql import graphql_app
 
 
-container = DIContainer()
-container.wire(packages=["presentation.api.rest.v1"])
 
 
 @asynccontextmanager

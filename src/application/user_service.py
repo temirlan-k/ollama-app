@@ -1,5 +1,6 @@
 import structlog
 from typing import Dict
+from typing import List
 
 from infra.db.postgres.uow import SQLAlchemyUnitOfWork
 from infra.security.auth.password import PasswordHandler
@@ -92,5 +93,17 @@ class UserService:
             except Exception as e:
                 self._logger.error(
                     "Error logging in", extra={"email": user.email, "error": str(e)}
+                )
+                raise e
+
+    async def get_all_users(self,)-> List[UserEntity]:
+        self._logger.info("Fetching all users")
+        async with self._uow as uow:
+            try:
+                users = await uow.user_repository.get_all_users()
+                return users
+            except Exception as e:
+                self._logger.error(
+                    "Error fetching users"
                 )
                 raise e

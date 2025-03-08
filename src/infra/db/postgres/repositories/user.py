@@ -1,3 +1,4 @@
+from typing import List
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from domain.entities.user import UserEntity
@@ -28,3 +29,16 @@ class UserRepository:
             if user_db
             else None
         )
+
+    async def get_all_users(self,) -> List[UserEntity]:
+        result = await self._session.execute(select(User))
+        users_db = result.scalars().all()
+        return [
+            UserEntity(
+                id=user_db.id,
+                email=user_db.email,
+                created_at=user_db.created_at,
+                password=user_db.hashed_password,
+            )
+            for user_db in users_db
+        ]

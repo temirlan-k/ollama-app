@@ -30,3 +30,6 @@ class DIContainer(containers.DeclarativeContainer):
         analytics_service=analytics_service,
         logger=logger,
     )
+
+container = DIContainer()
+container.wire(packages=["presentation.api.rest.v1","presentation.api.graphql"])
