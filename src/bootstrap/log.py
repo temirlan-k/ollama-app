@@ -1,9 +1,7 @@
-import logging
 import structlog
 
 
 def setup_logging() -> structlog.stdlib.BoundLogger:
-    logging.basicConfig(level=logging.INFO, format="%(message)s")
 
     structlog.configure(
         processors=[
