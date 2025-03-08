@@ -7,12 +7,12 @@ from infra.db.cache.redis import redis_cache
 from infra.db.mongo_db.db import close_mongo, init_mongo
 from infra.prometheus.middleware import init_prometheus
 from infra.sentry.sentry import init_sentry
-from presentation.api.v1.request import request_router
-from presentation.api.v1.user import user_router
-from presentation.api.v1.analytics import analytics_router
+from presentation.api.rest.v1.request import request_router
+from presentation.api.rest.v1.user import user_router
+from presentation.api.rest.v1.analytics import analytics_router
 
 container = DIContainer()
-container.wire(packages=["presentation.api.v1"])
+container.wire(packages=["presentation.api.rest.v1"])
 
 
 @asynccontextmanager
