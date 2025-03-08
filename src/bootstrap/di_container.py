@@ -12,7 +12,7 @@ from infra.db.mongo_db.repositories.analytics import analytics_repo
 
 class DIContainer(containers.DeclarativeContainer):
 
-    wiring_config = containers.WiringConfiguration(packages=["presentation.api.v1"])
+    wiring_config = containers.WiringConfiguration(packages=["presentation.api.rest.v1"])
 
     db_session_factory = providers.Object(async_session_factory)
     logger = providers.Singleton(setup_logging)

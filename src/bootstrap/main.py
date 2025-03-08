@@ -10,6 +10,8 @@ from infra.sentry.sentry import init_sentry
 from presentation.api.rest.v1.request import request_router
 from presentation.api.rest.v1.user import user_router
 from presentation.api.rest.v1.analytics import analytics_router
+from presentation.api.graphql import graphql_app
+
 
 container = DIContainer()
 container.wire(packages=["presentation.api.rest.v1"])
@@ -33,6 +35,7 @@ def create_app() -> FastAPI:
     app.include_router(user_router)
     app.include_router(request_router)
     app.include_router(analytics_router)
+    app.include_router(graphql_app,prefix='/graphql')
     init_prometheus(app)
     return app
 

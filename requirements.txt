@@ -10,6 +10,8 @@ pyjwt==2.9
 aioredis==2.0.1 
 redis==5.2.1
 prometheus_client==0.21.1
+strawberry-graphql==0.262.1
+secret-storage==0.0.2
 structlog
 ollama
 pydantic[email]
