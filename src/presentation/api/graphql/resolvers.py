@@ -19,6 +19,9 @@ class Query:
     @strawberry.field
     async def get_all_users(self, info: strawberry.types.Info)-> List[User]:
         user_service: UserService = info.context["user_service"]
+        current_user: dict = info.context["current_user"]
+        if not current_user:
+            raise ValueError("Not authenticated")
         return await user_service.get_all_users()
     
 @strawberry.type
