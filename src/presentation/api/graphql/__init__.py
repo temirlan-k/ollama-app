@@ -1,5 +1,5 @@
 import strawberry
-from presentation.api.graphql.resolvers import Query
+from presentation.api.graphql.resolvers import Query,Mutation
 from strawberry.fastapi import GraphQLRouter
 from bootstrap.di_container import container
 
@@ -9,5 +9,5 @@ def get_context():
     }
 
 
-schema = strawberry.Schema(query=Query)
+schema = strawberry.Schema(query=Query, mutation=Mutation)
 graphql_app = GraphQLRouter(schema,context_getter=get_context)
